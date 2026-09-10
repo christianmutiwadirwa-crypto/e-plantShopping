@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { decreaseQuantity, increaseQuantity, removeFromCart } from '../redux/CartSlice'
+import { removeItem, updateQuantity } from '../redux/CartSlice'
 
 export default function CartItem() {
   const dispatch = useDispatch()
   const items = useSelector((state) => state.cart.items)
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const calculateTotalAmount = () => items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const total = calculateTotalAmount()
 
   if (items.length === 0) {
     return (
@@ -34,12 +35,12 @@ export default function CartItem() {
               <div className="cart-product-info">
                 <h2>{item.name}</h2>
                 <p>${item.price} each</p>
-                <button className="remove-button" type="button" onClick={() => dispatch(removeFromCart(item.id))}>Remove</button>
+                <button className="remove-button" type="button" onClick={() => dispatch(removeItem(item.id))}>Remove</button>
               </div>
               <div className="quantity-control" aria-label={`Quantity for ${item.name}`}>
-                <button type="button" aria-label={`Decrease ${item.name} quantity`} onClick={() => dispatch(decreaseQuantity(item.id))}>−</button>
+                <button type="button" aria-label={`Decrease ${item.name} quantity`} onClick={() => dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }))}>−</button>
                 <span>{item.quantity}</span>
-                <button type="button" aria-label={`Increase ${item.name} quantity`} onClick={() => dispatch(increaseQuantity(item.id))}>+</button>
+                <button type="button" aria-label={`Increase ${item.name} quantity`} onClick={() => dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }))}>+</button>
               </div>
               <p className="item-total">${(item.price * item.quantity).toFixed(2)}</p>
             </article>

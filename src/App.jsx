@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AboutUs from './components/AboutUs'
@@ -25,15 +26,15 @@ function Navbar() {
   )
 }
 
-function LandingPage() {
+function LandingPage({ setShowProductList }) {
   return (
     <main className="landing-page">
-      <section className="hero-section">
+      <section className="hero-section background-image">
         <div className="hero-copy">
           <p className="eyebrow">Grow something good</p>
           <h1>Make room for a little more green.</h1>
           <p className="hero-description">Thoughtful houseplants for rooms that feel alive. Delivered with care from our nursery to your windowsill.</p>
-          <Link className="primary-button" to="/plants">Get Started <span aria-hidden="true">→</span></Link>
+          <button className="primary-button" type="button" onClick={() => setShowProductList(true)}>Get Started <span aria-hidden="true">→</span></button>
         </div>
         <div className="hero-note">
           <span>01</span>
@@ -46,11 +47,13 @@ function LandingPage() {
 }
 
 export default function App() {
+  const [showProductList, setShowProductList] = useState(false)
+
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={showProductList ? <ProductList /> : <LandingPage setShowProductList={setShowProductList} />} />
         <Route path="/plants" element={<ProductList />} />
         <Route path="/cart" element={<CartItem />} />
         <Route path="*" element={<LandingPage />} />

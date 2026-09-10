@@ -1,6 +1,6 @@
 export default function AboutUs() {
   return (
-    <section className="about-section" aria-labelledby="about-heading">
+    <section className="about-section about-us-container" aria-labelledby="about-heading">
       <div>
         <p className="eyebrow">The Paradise promise</p>
         <h2 id="about-heading">A greener daily ritual.</h2>
