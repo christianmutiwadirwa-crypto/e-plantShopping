@@ -4,7 +4,7 @@ import { plantCategories } from '../data/plants'
 
 function PlantCard({ plant }) {
   const dispatch = useDispatch()
-  const isInCart = useSelector((state) => state.cart.items.some((item) => item.id === plant.id))
+  const isAdded = useSelector((state) => state.cart.items.some((item) => item.id === plant.id))
 
   return (
     <article className="plant-card">
@@ -18,8 +18,8 @@ function PlantCard({ plant }) {
           <p className="plant-price">${plant.price}</p>
         </div>
         <p className="plant-description">{plant.description}</p>
-        <button className="add-button" type="button" disabled={isInCart} onClick={() => dispatch(addItem(plant))}>
-          {isInCart ? 'Added to Cart' : 'Add to Cart'}
+        <button className="add-button" type="button" disabled={isAdded} onClick={() => dispatch(addItem(plant))}>
+          {isAdded ? 'Added to Cart' : 'Add to Cart'}
         </button>
       </div>
     </article>

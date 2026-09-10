@@ -1,30 +1,9 @@
 import { useState } from 'react'
-import { Link, NavLink, Route, Routes } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Link, Route, Routes } from 'react-router-dom'
 import AboutUs from './components/AboutUs'
+import Navbar from './components/Navbar'
 import ProductList from './components/ProductList'
 import CartItem from './components/CartItem'
-
-function Navbar() {
-  const itemCount = useSelector((state) => state.cart.items.reduce((total, item) => total + item.quantity, 0))
-
-  return (
-    <header className="site-header">
-      <Link className="brand" to="/">
-        <span className="brand-mark">PN</span>
-        <span>Paradise Nursery</span>
-      </Link>
-      <nav className="main-nav" aria-label="Main navigation">
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/plants">Plants</NavLink>
-        <NavLink className="cart-link" to="/cart">
-          <span aria-hidden="true">🛒</span>
-          Cart <strong>{itemCount}</strong>
-        </NavLink>
-      </nav>
-    </header>
-  )
-}
 
 function LandingPage({ setShowProductList }) {
   return (
